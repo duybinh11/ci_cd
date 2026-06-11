@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CI_CD</string>
+    <string name="app_logo">App logo</string>
+    <string name="welcome_title">Chào mừng!</string>
+    <string name="welcome_subtitle">Ứng dụng CI/CD đã sẵn sàng.\nAPK được build và phân phối tự động qua Firebase.</string>
+    <string name="app_version">Phiên bản 1.0</string>
 </resources>
