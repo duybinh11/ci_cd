@@ -13,5 +13,3 @@ build-and-distribute:
   script:
     - chmod +x ./gradlew
     - ./gradlew assembleDebug appDistributionUploadDebug --stacktrace
-  variables:
-    FIREBASE_TESTERS_EMAIL: $FIREBASE_TESTERS_EMAIL

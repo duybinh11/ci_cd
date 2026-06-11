@@ -31,5 +31,4 @@ jobs:
       - name: Build APK and upload to Firebase App Distribution
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-credentials.json
-          FIREBASE_TESTERS_EMAIL: ${{ secrets.FIREBASE_TESTERS_EMAIL }}
         run: ./gradlew assembleDebug appDistributionUploadDebug --stacktrace
