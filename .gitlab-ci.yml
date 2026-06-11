@@ -1,0 +1,17 @@
+stages:
+  - build
+
+build-and-distribute:
+  stage: build
+  image: eclipse-temurin:17-jdk-jammy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "feature/ci_cd"
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq git
+    - echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > /tmp/firebase-credentials.json
+    - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/firebase-credentials.json
+  script:
+    - chmod +x ./gradlew
+    - ./gradlew assembleDebug appDistributionUploadDebug --stacktrace
+  variables:
+    FIREBASE_TESTERS_EMAIL: $FIREBASE_TESTERS_EMAIL
