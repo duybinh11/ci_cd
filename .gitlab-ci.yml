@@ -10,11 +10,6 @@ build-and-distribute:
     - apt-get update -qq && apt-get install -y -qq git
     - echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > /tmp/firebase-credentials.json
     - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/firebase-credentials.json
-    - echo "$RELEASE_KEYSTORE_BASE64" | base64 -d > /tmp/release.keystore
-    - export RELEASE_KEYSTORE_PATH=/tmp/release.keystore
-    - export RELEASE_KEYSTORE_PASSWORD=$RELEASE_KEYSTORE_PASSWORD
-    - export RELEASE_KEY_ALIAS=$RELEASE_KEY_ALIAS
-    - export RELEASE_KEY_PASSWORD=$RELEASE_KEY_PASSWORD
   script:
     - chmod +x ./gradlew
     - ./gradlew assembleRelease appDistributionUploadRelease --stacktrace
