@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902770891689",
+    "project_id": "cicdstarnest",
+    "storage_bucket": "cicdstarnest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902770891689:android:cadd3cca4ab73c8d0d02b8",
+        "android_client_info": {
+          "package_name": "com.starnest.ci_cd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCflmt4azxx-WBWxTCL3ORIvP1v27fCYMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
