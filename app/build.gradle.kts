@@ -28,7 +28,7 @@ android {
             firebaseAppDistribution {
                 artifactType = "APK"
                 releaseNotes = "CI build ${System.getenv("GITHUB_SHA")?.take(7) ?: "local"}"
-                groups = "testers"
+                groups = "tester"
             }
         }
         release {
@@ -40,7 +40,7 @@ android {
             firebaseAppDistribution {
                 artifactType = "APK"
                 releaseNotes = "CI build ${System.getenv("GITHUB_SHA")?.take(7) ?: "local"}"
-                groups = "testers"
+                groups = "tester"
             }
         }
     }
