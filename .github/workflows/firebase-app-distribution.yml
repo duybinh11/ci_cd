@@ -43,7 +43,9 @@ jobs:
 
       - name: Upload APK to Google Drive
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-credentials.json
+          GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.GOOGLE_DRIVE_CLIENT_ID }}
+          GOOGLE_DRIVE_CLIENT_SECRET: ${{ secrets.GOOGLE_DRIVE_CLIENT_SECRET }}
+          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
           DRIVE_FOLDER_ID: 1juZQyXUbeE8DF2AQixSkW96sNOC11W6o
           APK_PATH: app/build/outputs/apk/release/app-release.apk
         run: python scripts/upload-to-drive.py

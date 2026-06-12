@@ -3,7 +3,7 @@ import os
 import sys
 from datetime import datetime, timezone
 
-from google.oauth2 import service_account
+from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
@@ -11,15 +11,24 @@ SCOPES = ["https://www.googleapis.com/auth/drive.file"]
 
 
 def main() -> None:
-    credentials_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+    client_id = os.environ.get("GOOGLE_DRIVE_CLIENT_ID")
+    client_secret = os.environ.get("GOOGLE_DRIVE_CLIENT_SECRET")
+    refresh_token = os.environ.get("GOOGLE_DRIVE_REFRESH_TOKEN")
     folder_id = os.environ.get("DRIVE_FOLDER_ID")
     apk_path = os.environ.get("APK_PATH", "app/build/outputs/apk/release/app-release.apk")
 
-    if not credentials_path:
-        print("GOOGLE_APPLICATION_CREDENTIALS is not set", file=sys.stderr)
-        sys.exit(1)
-    if not folder_id:
-        print("DRIVE_FOLDER_ID is not set", file=sys.stderr)
+    missing = [
+        name
+        for name, value in [
+            ("GOOGLE_DRIVE_CLIENT_ID", client_id),
+            ("GOOGLE_DRIVE_CLIENT_SECRET", client_secret),
+            ("GOOGLE_DRIVE_REFRESH_TOKEN", refresh_token),
+            ("DRIVE_FOLDER_ID", folder_id),
+        ]
+        if not value
+    ]
+    if missing:
+        print(f"Missing required environment variables: {', '.join(missing)}", file=sys.stderr)
         sys.exit(1)
     if not os.path.isfile(apk_path):
         print(f"APK not found: {apk_path}", file=sys.stderr)
@@ -29,8 +38,13 @@ def main() -> None:
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     file_name = f"app-release-{sha}-{timestamp}.apk"
 
-    credentials = service_account.Credentials.from_service_account_file(
-        credentials_path, scopes=SCOPES
+    credentials = Credentials(
+        token=None,
+        refresh_token=refresh_token,
+        token_uri="https://oauth2.googleapis.com/token",
+        client_id=client_id,
+        client_secret=client_secret,
+        scopes=SCOPES,
     )
     drive = build("drive", "v3", credentials=credentials)
 
