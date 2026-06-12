@@ -32,3 +32,18 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-credentials.json
         run: ./gradlew assembleRelease appDistributionUploadRelease --stacktrace
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Google Drive API client
+        run: pip install google-api-python-client google-auth
+
+      - name: Upload APK to Google Drive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-credentials.json
+          DRIVE_FOLDER_ID: 1juZQyXUbeE8DF2AQixSkW96sNOC11W6o
+          APK_PATH: app/build/outputs/apk/release/app-release.apk
+        run: python scripts/upload-to-drive.py
